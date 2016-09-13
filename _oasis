@@ -1,0 +1,42 @@
+# -*- conf -*-
+OASISFormat:  0.4
+OCamlVersion: >= 4.02.3
+Name:         objc
+Version:      0.0.1
+Maintainers:  Edgar Aroutiounian
+Homepage:     http://hyegar.com
+Synopsis:     Introspect Objective-C objects from OCaml
+Authors:      Edgar Aroutiounian <edgar.factorial@gmail.com>
+License:      BSD-3-clause
+Plugins:      META (0.4), DevFiles (0.4)
+AlphaFeatures: ocamlbuild_more_args
+
+PreBuildCommand: make -C example clean
+
+Description:
+  Manipulate, introspect Objective-C Objects from OCaml!
+
+Library objc
+  Path: src
+  BuildTools: ocamlbuild
+  install: true
+  CClib: -framework Foundation
+  CCOpt:
+    -g -Wall -Wextra -std=c11 -fno-omit-frame-pointer
+    -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error
+    -ObjC -fobjc-arc
+  NativeOpt: -cc clang
+  ByteOpt: -cc clang
+  Modules: ObjC
+  # InternalModules: 
+  CSources: ocaml_objc_stubs.c
+
+# Document api
+#   Title: API reference for objc_introspection
+#   Type: ocamlbuild (0.4)
+#   Authors: Edgar Aroutiounian
+#   BuildTools: ocamldoc, ocamlbuild
+#   Format: HTML
+#   Index: index.html
+#   XOCamlbuildPath: .
+#   XOCamlbuildLibraries: objc_introspection
