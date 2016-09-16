@@ -1,0 +1,30 @@
+opam-version: "1.2"
+name: "objc"
+version: "0.0.1"
+maintainer: "Edgar Aroutiounian <edgar.factorial@gmail.com>"
+authors: [ "Edgar Aroutiounian <edgar.factorial@gmail.com>" ]
+license: "BSD-3-clause"
+homepage: "http://hyegar.com"
+dev-repo: "https://github.com/fxfactorial/ocaml-objc.git"
+bug-reports: "https://github.com/fxfactorial/ocaml-objc/issues"
+build: [
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--prefix" prefix]
+  ["ocaml" "setup.ml" "-build"]
+]
+install: ["ocaml" "setup.ml" "-install"]
+remove: [
+  ["ocamlfind" "remove" "objc"]
+]
+build-test: [
+  ["oasis" "setup"]
+  ["ocaml" "setup.ml" "-configure" "--enable-tests"]
+  ["ocaml" "setup.ml" "-build"]
+  ["ocaml" "setup.ml" "-test"]
+]
+depends: [
+  "oasis" {build & >= "0.4"}
+  "ocamlbuild" {build}
+  "ocamlfind" {build}
+]
+available: [ ocaml-version >= "4.02.3" ]
