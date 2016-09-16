@@ -10,6 +10,22 @@ I made this because its a lot easier to play with `Objective-C`,
 investigate it from a repl, use `utop`, than the compile cycle,
 motivated in part by my `iOS` reverse engineering work.
 
+# Installation
+
+Install with `opam`, the OCaml package manager! Get a crash course on
+`OCaml`, `opam`
+[here](http://hyegar.com/2015/10/20/so-youre-learning-ocaml/)
+
+```shell
+$ opam install objc
+```
+
+or you get a latest version directly from the git repo: 
+
+```shell
+$ opam pin add objc git@github.com:fxfactorial/ocaml-objc.git
+```
+
 # Usage
 
 Look at `example/e.ml` for an example of the high level `Introspect`
@@ -31,6 +47,9 @@ with `utop`, you can do:
 ```ocaml
 #require "objc";;
 let props = ObjC.Introspect.properties "NSString";;
+val props : string list = 
+["@property (atomic, assign, readonly) Q length"; 
+"@property (atomic, copy, readonly) NSString* stringByRemovingPercentEncoding"]
 ```
 
 Or if you feel like compiling (use `ocamlc` or `ocamlopt`):
