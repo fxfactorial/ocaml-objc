@@ -31,6 +31,12 @@ Library objc
   # InternalModules: 
   CSources: ocaml_objc_stubs.c
 
+SourceRepository master
+  Type:     git
+  Location: https://github.com/fxfactorial/ocaml-objc.git
+  Browser:  https://github.com/fxfactorial/ocaml-objc
+
+
 # Document api
 #   Title: API reference for objc_introspection
 #   Type: ocamlbuild (0.4)
