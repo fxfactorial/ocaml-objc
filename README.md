@@ -42,10 +42,24 @@ let () =
   | l -> l |> List.iter print_endline
 ```
 
+Also exposes some parts of the `dyld` API, the OSX, iOS linker.
+
 with `utop`, you can do:
 
 ```ocaml
 #require "objc";;
+let imgs = ObjC.Dyld.images ();;
+al imgs : string list =
+["/Users/Edgar/.opam/objc/bin/ocamlrun"; "/usr/lib/libncurses.5.4.dylib";
+ "/usr/lib/libSystem.B.dylib"; "/usr/lib/system/libcache.dylib";
+ "/usr/lib/system/libcommonCrypto.dylib";
+ "/usr/lib/system/libcompiler_rt.dylib"; 
+ "/usr/lib/system/libcopyfile.dylib";
+ ...
+```
+
+
+```ocaml
 let props = ObjC.Introspect.properties "NSString";;
 val props : string list = 
 ["@property (atomic, assign, readonly) Q length"; 
