@@ -1,11 +1,11 @@
 # -*- conf -*-
 OASISFormat:  0.4
-OCamlVersion: >= 4.02.3
+OCamlVersion: >= 4.03.0
 Name:         objc
 Version:      0.0.1
 Maintainers:  Edgar Aroutiounian
 Homepage:     http://hyegar.com
-Synopsis:     Introspect Objective-C objects from OCaml
+Synopsis:     Introspect Objective-C, various Darwin goodies from OCaml
 Authors:      Edgar Aroutiounian <edgar.factorial@gmail.com>
 License:      BSD-3-clause
 Plugins:      META (0.4), DevFiles (0.4)
@@ -14,7 +14,8 @@ AlphaFeatures: ocamlbuild_more_args
 PreBuildCommand: make -C example clean
 
 Description:
-  Manipulate, introspect Objective-C Objects from OCaml!
+  Manipulate, introspect Objective-C Objects,
+  various Darwin goodies from OCaml!
 
 Library objc
   Path: src
@@ -24,12 +25,22 @@ Library objc
   CCOpt:
     -g -Wall -Wextra -std=c11 -fno-omit-frame-pointer
     -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error
-    -ObjC -fobjc-arc
-  NativeOpt: -cc clang
-  ByteOpt: -cc clang
+    -ObjC -fobjc-arc -O1
+  NativeOpt: -cc clang -g -w +a-4-40..42-44-45-48
+  ByteOpt: -cc clang -g -w +a-4-40..42-44-45-48
   Modules: ObjC
-  # InternalModules: 
-  CSources: ocaml_objc_stubs.c
+  CSources:
+    ocaml_objc_stubs.c, ocaml_dyld_stubs.c
+
+Executable stress_test
+  Path: example
+  BuildTools:ocamlbuild
+  install: false
+  MainIs: e.ml
+  CompiledObject: native
+  NativeOpt: -g -w +a-4-40..42-44-45-48
+  ByteOpt: -g -w +a-4-40..42-44-45-48
+  BuildDepends: objc
 
 SourceRepository master
   Type:     git

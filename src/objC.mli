@@ -26,3 +26,16 @@ module Introspect : sig
   val parent_class_hierarchy : string -> string option
 
 end
+
+(** API of Dyld, the OS X/iOS linker*)
+module Dyld : sig
+
+  (** Total count of all images *)
+  val image_count : unit -> int
+
+  (** The image name given the index, None returned if input index is
+      invalid *)
+  val image_name : int -> string option
+
+  val images : unit -> string list
+end

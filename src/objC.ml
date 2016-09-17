@@ -10,3 +10,17 @@ module Introspect = struct
     string -> string option = "caml_objc_parent_class_hierarchy"
 
 end
+
+module Dyld = struct
+  external image_count : unit -> int = "caml_dyld_image_count"
+  external image_name : int -> string option = "caml_dyld_image_name"
+  let images () =
+    let all = ref [] in
+    for i = 0 to image_count () - 1 do
+      match image_name i with None -> () | Some s -> all := s :: !all
+    done;
+    List.rev !all
+  (* FixME, the integer sizing is wrong *)
+  (* external image_slide : int -> int = "caml_dyld_image_slide" *)
+  (* external version_of_runtime_library : string -> int option = "caml_dyld_image_version" *)
+end
