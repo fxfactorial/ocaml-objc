@@ -11,8 +11,6 @@ License:      BSD-3-clause
 Plugins:      META (0.4), DevFiles (0.4)
 AlphaFeatures: ocamlbuild_more_args
 
-PreBuildCommand: make -C example clean
-
 Description:
   Manipulate, introspect Objective-C Objects,
   various Darwin goodies from OCaml!
@@ -25,7 +23,7 @@ Library objc
   CCOpt:
     -g -Wall -Wextra -std=c11 -fno-omit-frame-pointer
     -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error
-    -ObjC -fobjc-arc -O1
+    -ObjC -O1 -Wno-arc-performSelector-leaks -fno-objc-arc
   NativeOpt: -cc clang -g -w +a-4-40..42-44-45-48
   ByteOpt: -cc clang -g -w +a-4-40..42-44-45-48
   Modules: ObjC

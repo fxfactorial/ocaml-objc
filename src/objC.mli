@@ -37,5 +37,16 @@ module Dyld : sig
       invalid *)
   val image_name : int -> string option
 
+  (** All images as a string list *)
   val images : unit -> string list
+
+  val image_slide : int -> Nativeint.t
+
 end
+
+type obj
+
+val description : obj -> string
+val nsstring_of_string : string -> obj
+val create_object : string -> obj option
+val call_method : obj -> selector:string -> args:'args array -> obj option
