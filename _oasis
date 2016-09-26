@@ -19,15 +19,22 @@ Library objc
   Path: src
   BuildTools: ocamlbuild
   install: true
+  # TODO, make this also preprocessed for iOS
   CClib: -framework Foundation
   CCOpt:
     -g -Wall -Wextra -std=c11 -fno-omit-frame-pointer
     -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error
-    -ObjC -O1 -Wno-arc-performSelector-leaks -fno-objc-arc
-  NativeOpt: -cc clang -g -w +a-4-40..42-44-45-48
-  ByteOpt: -cc clang -g -w +a-4-40..42-44-45-48
+    -ObjC -O2 -Wno-arc-performSelector-leaks -fno-objc-arc
+    -fsanitize=address -fno-optimize-sibling-calls
+  NativeOpt:
+    -cc clang -g -w +a-4-40..42-44-45-48
+    -cclib -fsanitize=address -ccopt -fsanitize=address
+  ByteOpt:
+    -cc clang -g -w +a-4-40..42-44-45-48
+    -cclib -fsanitize=address -ccopt -fsanitize=address
   Modules: ObjC
   CSources:
+    utils.h, utils.c, dl_inspection.c,
     ocaml_objc_stubs.c, ocaml_dyld_stubs.c
 
 Executable stress_test
@@ -44,7 +51,6 @@ SourceRepository master
   Type:     git
   Location: https://github.com/fxfactorial/ocaml-objc.git
   Browser:  https://github.com/fxfactorial/ocaml-objc
-
 
 # Document api
 #   Title: API reference for objc_introspection

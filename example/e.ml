@@ -1,10 +1,10 @@
-(* let () = *)
-(*   ObjC.Introspect.properties "NSString" *)
-(*   |> List.iter print_endline; *)
+let () =
+  ObjC.Introspect.properties "NSString"
+  |> List.iter print_endline;
 
-(*   match ObjC.Introspect.protocols "NonExistent" with *)
-(*   | [] -> print_endline "Doesn't exist so empty list" *)
-(*   | l -> l |> List.iter print_endline *)
+  match ObjC.Introspect.protocols "NonExistent" with
+  | [] -> print_endline "Doesn't exist so empty list"
+  | l -> l |> List.iter print_endline
 
 let () = ObjC.(
     (* Dyld.image_count () |> string_of_int |> print_endline; *)
@@ -23,7 +23,6 @@ let () = ObjC.(
     match call_method nsstring ~selector:"uppercaseString" ~args:[||] with
     | None -> print_endline "Method didn't work"
     | Some e -> print_endline (description e)
-
 
 
     (* match create_object "NSMutableString" with *)
